@@ -49,22 +49,30 @@
   <video id="video" controls playsinline preload="metadata" controlsList="nodownload"></video>
   
   <div class="controls">
+    <button onclick="loadVideo()">Load Video</button>
   </div>
 </div>
 
 <script>
-  const video = document.getElementById('video');
-  const base = `https://cdn2.videy.co/${id}`;
-  
-  video.src = base + ".mp4";
-  video.load();
-  video.play().catch(() => {
-    console.log("mp4 gagal, coba format lain...");
-  });
-  
-  // Optional: update title
-  document.title = `Videy → ${id}`;
-}
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
+
+  if (id) {
+    const video = document.getElementById('video');
+    video.src = `https://cdn2.videy.co/${id}.mp4`;
+    video.load();
+    document.title = `Videy → ${id}`;
+  } else {
+    // tampilkan input jika tidak ada ?id
+    document.getElementById('vid-id').focus();
+  }
+
+  function loadVideo() {
+    const id = document.getElementById('vid-id').value.trim();
+    if (id) {
+      window.location.href = `?id=${id}`;
+    }
+  }
 </script>
 
 </body>
