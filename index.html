@@ -42,21 +42,6 @@
             margin: 16px auto; 
             text-align: center; 
         }
-        .ad-sticky-bottom { 
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            height: 60px; 
-            z-index: 999; 
-            background: rgba(0,0,0,0.7); 
-            text-align: center; 
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.5); 
-        }
-        .ad-sticky-bottom > div { 
-            max-width: 320px; 
-            margin: 0 auto; 
-        }
 
         .controls { padding: 12px; background: rgba(0,0,0,0.7); text-align: center; margin: 8px 0; }
         input, button { padding: 8px 12px; font-size: 1rem; margin: 0 6px; border-radius: 6px; border: none; }
@@ -98,7 +83,7 @@
 
     <!-- Video -->
     <div id="video-wrapper">
-        <video id="video" controls playsinline preload="metadata" controlsList="nodownload"></video>
+        <video id="video" controls playsinline preload="metadata" controlsList="nodownload nofullscreen"></video>
     </div>
 
     <!-- Under Video Ad (pakai class .ad-under supaya rapi) -->
