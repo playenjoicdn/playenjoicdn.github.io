@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Videy Player</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      height: 100%;
+      background: #000;
+      color: #eee;
+      font-family: system-ui, sans-serif;
+    }
+    #player-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    video {
+      width: 100%;
+      height: 90vh;
+      object-fit: contain;
+      background: #111;
+    }
+    .controls {
+      padding: 12px;
+      background: rgba(0,0,0,0.7);
+      text-align: center;
+    }
+    input, button {
+      padding: 8px 12px;
+      font-size: 1rem;
+      margin: 0 6px;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover { background: #3b82f6; }
+  </style>
+</head>
+<body>
+
+<div id="player-container">
+  <video id="video" controls playsinline preload="metadata" controlsList="nodownload"></video>
+  
+  <div class="controls">
+  </div>
+</div>
+
+<script>
+  const video = document.getElementById('video');
+  const base = `https://cdn2.videy.co/${id}`;
+  
+  video.src = base + ".mp4";
+  video.load();
+  video.play().catch(() => {
+    console.log("mp4 gagal, coba format lain...");
+  });
+  
+  // Optional: update title
+  document.title = `Videy → ${id}`;
+}
+</script>
+
+</body>
+</html>
