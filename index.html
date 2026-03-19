@@ -1,135 +1,133 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Videy Player</title>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html, body {
-      height: 100%;
-      background: #000;
-      color: #eee;
-      font-family: system-ui, sans-serif;
-      overflow-x: hidden;
-    }
-    #player-container {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    #video-wrapper {
-      position: relative;
-      width: 100%;
-      flex: 1;
-      background: #111;
-      min-height: 50vh; /* agar tidak terlalu kecil di desktop */
-    }
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-    .ad-top {
-      width: 100%;
-      height: 90px; /* leaderboard ~728x90 */
-      background: rgba(0,0,0,0.6);
-      text-align: center;
-      line-height: 90px;
-      margin-bottom: 8px;
-    }
-    .ad-under {
-      width: 100%;
-      max-width: 300px; /* atau 336px */
-      margin: 16px auto;
-      text-align: center;
-    }
-    /* Sticky bottom ad - paling efektif untuk revenue di video page */
-    .ad-sticky-bottom {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px; /* 320x50 atau 320x100 */
-      z-index: 999;
-      background: rgba(0,0,0,0.7);
-      text-align: center;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
-    }
-    .ad-sticky-bottom > div {
-      max-width: 320px;
-      margin: 0 auto;
-    }
-    .controls {
-      padding: 12px;
-      background: rgba(0,0,0,0.7);
-      text-align: center;
-      margin: 8px 0;
-    }
-    input, button {
-      padding: 8px 12px;
-      font-size: 1rem;
-      margin: 0 6px;
-      border-radius: 6px;
-      border: none;
-    }
-    button {
-      background: #2563eb;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover { background: #3b82f6; }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Videy Player</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html, body { height: 100%; background: #000; color: #eee; font-family: system-ui, sans-serif; overflow-x: hidden; }
+        
+        #player-container { 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        #video-wrapper { 
+            position: relative; 
+            width: 100%; 
+            flex: 1; 
+            background: #111; 
+            min-height: 50vh; 
+        }
+        video { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+        }
+
+        /* Iklan */
+        .ad-top { 
+            width: 100%; 
+            height: 90px; 
+            background: rgba(0,0,0,0.6); 
+            text-align: center; 
+            line-height: 90px; 
+            margin-bottom: 8px; 
+        }
+        .ad-under { 
+            width: 100%; 
+            max-width: 300px; 
+            margin: 16px auto; 
+            text-align: center; 
+        }
+        .ad-sticky-bottom { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            height: 60px; 
+            z-index: 999; 
+            background: rgba(0,0,0,0.7); 
+            text-align: center; 
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.5); 
+        }
+        .ad-sticky-bottom > div { 
+            max-width: 320px; 
+            margin: 0 auto; 
+        }
+
+        .controls { padding: 12px; background: rgba(0,0,0,0.7); text-align: center; margin: 8px 0; }
+        input, button { padding: 8px 12px; font-size: 1rem; margin: 0 6px; border-radius: 6px; border: none; }
+        button { background: #2563eb; color: white; cursor: pointer; }
+        button:hover { background: #3b82f6; }
+
+        /* === MODIFIKASI MOBILE === */
+        @media (max-width: 768px) {
+            #video-wrapper {
+                flex: none !important;      /* jangan memenuhi layar */
+                min-height: 40vh !important;
+                height: 40vh !important;    /* video jadi kecil */
+            }
+            video {
+                height: 40vh !important;
+            }
+            .ad-top {
+                height: 60px;               /* leaderboard lebih kecil di HP */
+            }
+        }
+    </style>
 </head>
 <body>
-
 <div id="player-container">
+    
+    <!-- Top Ad -->
+    <div class="ad-top">
+        <script>
+            atOptions = { 
+                'key' : 'a56d9957870f34de53762968bb2255c5', 
+                'format' : 'iframe', 
+                'height' : 90, 
+                'width' : 728, 
+                'params' : {} 
+            };
+        </script>
+        <script src="https://braceslinear.com/a56d9957870f34de53762968bb2255c5/invoke.js"></script>
+    </div>
 
-  <div class="ad-top">
-    <script>
-      atOptions = {
-        'key' : 'a56d9957870f34de53762968bb2255c5',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://braceslinear.com/a56d9957870f34de53762968bb2255c5/invoke.js"></script>
-  </div>
+    <!-- Video -->
+    <div id="video-wrapper">
+        <video id="video" controls playsinline preload="metadata" controlsList="nodownload"></video>
+    </div>
 
-  <div id="video-wrapper">
-    <video id="video" controls playsinline preload="metadata" controlsList="nodownload"></video>
-  </div>
-
+    <!-- Under Video Ad (pakai class .ad-under supaya rapi) -->
     <script async="async" data-cfasync="false" src="https://braceslinear.com/d3e082d534e1581e0f78d3cfe456f0d9/invoke.js"></script>
-    <div id="container-d3e082d534e1581e0f78d3cfe456f0d9"></div>
+    <div id="container-d3e082d534e1581e0f78d3cfe456f0d9" class="ad-under"></div>
+
+    <!-- Sticky Bottom Ad (selalu kelihatan di bawah) -->
+    <div class="ad-sticky-bottom">
+        <div>
+            <!-- GANTI DENGAN SCRIPT IKLAN STICKY KAMU -->
+            <!-- Contoh: -->
+            <!-- <script> atOptions = { 'key' : 'YOUR_STICKY_KEY', ... }; </script> -->
+            <!-- <script src="https://braceslinear.com/YOURKEY/invoke.js"></script> -->
+            <span style="color:#aaa; font-size:13px;">Iklan Sticky Bottom (320x50)</span>
+        </div>
+    </div>
+
 </div>
 
 <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get('id');
-  const video = document.getElementById('video');
-  const controls = document.getElementById('controls');
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const video = document.getElementById('video');
 
-  if (id) {
-    video.src = `https://cdn2.videy.co/${id}.mp4`;
-    video.load();
-    document.title = `Videy → ${id}`;
-    // auto play jika mau (tapi hati-hati policy browser)
-    // video.play().catch(()=>{});
-  } else {
-    controls.style.display = 'block';
-    document.getElementById('vid-id').focus();
-  }
-
-  function loadVideo() {
-    const inputId = document.getElementById('vid-id').value.trim();
-    if (inputId) {
-      window.location.href = `?id=${inputId}`;
+    if (id) {
+        video.src = `https://cdn2.videy.co/${id}.mp4`;
+        video.load();
+        document.title = `Videy → ${id}`;
     }
-  }
 </script>
-
 </body>
 </html>
