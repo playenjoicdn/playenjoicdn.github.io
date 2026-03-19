@@ -11,22 +11,60 @@
       background: #000;
       color: #eee;
       font-family: system-ui, sans-serif;
+      overflow-x: hidden;
     }
     #player-container {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
+    #video-wrapper {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      background: #111;
+      min-height: 50vh; /* agar tidak terlalu kecil di desktop */
+    }
     video {
       width: 100%;
-      height: 90vh;
+      height: 100%;
       object-fit: contain;
-      background: #111;
+    }
+    .ad-top {
+      width: 100%;
+      height: 90px; /* leaderboard ~728x90 */
+      background: rgba(0,0,0,0.6);
+      text-align: center;
+      line-height: 90px;
+      margin-bottom: 8px;
+    }
+    .ad-under {
+      width: 100%;
+      max-width: 300px; /* atau 336px */
+      margin: 16px auto;
+      text-align: center;
+    }
+    /* Sticky bottom ad - paling efektif untuk revenue di video page */
+    .ad-sticky-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px; /* 320x50 atau 320x100 */
+      z-index: 999;
+      background: rgba(0,0,0,0.7);
+      text-align: center;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+    }
+    .ad-sticky-bottom > div {
+      max-width: 320px;
+      margin: 0 auto;
     }
     .controls {
       padding: 12px;
       background: rgba(0,0,0,0.7);
       text-align: center;
+      margin: 8px 0;
     }
     input, button {
       padding: 8px 12px;
@@ -46,31 +84,49 @@
 <body>
 
 <div id="player-container">
-  <video id="video" controls playsinline preload="metadata" controlsList="nodownload"></video>
-  
-  <div class="controls">
-    <button onclick="loadVideo()">Load Video</button>
+
+  <div class="ad-top">
+    <script>
+      atOptions = {
+        'key' : 'a56d9957870f34de53762968bb2255c5',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    </script>
+    <script src="https://braceslinear.com/a56d9957870f34de53762968bb2255c5/invoke.js"></script>
   </div>
+
+  <div id="video-wrapper">
+    <video id="video" controls playsinline preload="metadata" controlsList="nodownload"></video>
+  </div>
+
+    <script async="async" data-cfasync="false" src="https://braceslinear.com/d3e082d534e1581e0f78d3cfe456f0d9/invoke.js"></script>
+    <div id="container-d3e082d534e1581e0f78d3cfe456f0d9"></div>
 </div>
 
 <script>
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
+  const video = document.getElementById('video');
+  const controls = document.getElementById('controls');
 
   if (id) {
-    const video = document.getElementById('video');
     video.src = `https://cdn2.videy.co/${id}.mp4`;
     video.load();
     document.title = `Videy → ${id}`;
+    // auto play jika mau (tapi hati-hati policy browser)
+    // video.play().catch(()=>{});
   } else {
-    // tampilkan input jika tidak ada ?id
+    controls.style.display = 'block';
     document.getElementById('vid-id').focus();
   }
 
   function loadVideo() {
-    const id = document.getElementById('vid-id').value.trim();
-    if (id) {
-      window.location.href = `?id=${id}`;
+    const inputId = document.getElementById('vid-id').value.trim();
+    if (inputId) {
+      window.location.href = `?id=${inputId}`;
     }
   }
 </script>
