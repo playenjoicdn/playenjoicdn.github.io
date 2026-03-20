@@ -4,147 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Videy Player</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap');
-        
         * { margin:0; padding:0; box-sizing:border-box; }
         html, body {
-            height: 100%;
-            background: #0a0a0a;
-            color: #eee;
-            font-family: 'Inter', system-ui, sans-serif;
-            overflow-x: hidden;
+            height: 100%; 
+            background: #000; 
+            color: #eee; 
+            font-family: system-ui, sans-serif; 
+            overflow-x: hidden; 
         }
         
-        .tail-container {
-            max-width: 1080px;
-            margin: 0 auto;
+        #player-container { 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
         }
         
-        #player-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+        #video-wrapper { 
+            flex: none !important;      /* jangan memenuhi layar */
+            min-height: 40vh !important;
+            height: 40vh !important;    /* video jadi kecil */
         }
-        
-        /* Header modern */
-        header {
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-        
-        @keyframes pulseAd {
-            0% { box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
-            100% { box-shadow: 0 0 35px rgba(249, 115, 22, 0.7); }
-        }
-        
-        /* Video Area – Super Premium */
-        #video-wrapper {
-            flex: 1;
-            max-height: 68vh;
-            min-height: 380px;
-            padding: 0 16px;
-            position: relative;
-        }
-        
-        .video-frame {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: #111;
-        }
-        
-        /* Overlay play hint */
-        .play-hint {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(249, 115, 22, 0.9);
-            color: #000;
-            width: 72px;
-            height: 72px;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 0 40px rgba(249, 115, 22, 0.6);
-            opacity: 0;
-            transition: all 0.3s;
-            pointer-events: none;
-        }
-        
-        #video-wrapper:hover .play-hint {
-            opacity: 1;
+        video { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
         }
 
-        @keyframes glowBottom {
-            0% { border-color: #f97316; }
-            100% { border-color: #fb923c; }
-        }
-
-        .logo {
-            font-family: 'Poppins', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(90deg, #f97316, #fb923c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Iklan */
+        .ad-top { 
+            width: 100%; 
+            height: 90px; 
+            background: rgba(0,0,0,0.6); 
+            text-align: center; 
+            line-height: 90px; 
+            margin-bottom: 8px; 
         }
     </style>
 </head>
 <body>
 <div id="player-container">
-    <!-- HEADER -->
-    <header class="py-4">
-        <div class="tail-container flex items-center justify-between px-6">
-            <div class="flex items-center gap-3">
-                <div class="logo">VIDEY</div>
-                <span class="text-orange-400 text-sm font-medium tracking-widest">PLAYER</span>
-            </div>
-        </div>
-    </header>
+    
+    <div class="ad-top">
+        <script>
+          atOptions = {
+            'key' : 'a56d9957870f34de53762968bb2255c5',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://braceslinear.com/a56d9957870f34de53762968bb2255c5/invoke.js"></script>
+    </div>
 
-    <!-- IKLAN TOP – SUPER MENARIK -->
-    <div class="tail-container px-6">
-            <script>
-              atOptions = {
-                'key' : 'a56d9957870f34de53762968bb2255c5',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-              };
-            </script>
-            <script src="https://braceslinear.com/a56d9957870f34de53762968bb2255c5/invoke.js"></script>
-        </div>
-
-    <div id="video-wrapper" class="tail-container">
-        <div class="video-frame relative">
-            <video id="video" autoplay muted controls playsinline
-                controlsList="nodownload nofullscreen" 
-                poster="https://cdn.aceimg.com/94cd4a3b4.jpg"
-                class="rounded-3xl">
-            </video>
-        </div>
-    </div> 
-    <!-- IKLAN BAWAH – DENGAN LABEL MENARIK -->
-<script async="async" data-cfasync="false" src="https://braceslinear.com/d3e082d534e1581e0f78d3cfe456f0d9/invoke.js"></script>
-<div id="container-d3e082d534e1581e0f78d3cfe456f0d9"></div>
+    <div id="video-wrapper">
+        <video id="video" autoplay muted controls playsinline
+            controlsList="nodownload nofullscreen" poster="https://cdn.aceimg.com/94cd4a3b4.jpg">
+        </video>
+    </div>
+    <script async="async" data-cfasync="false" src="https://braceslinear.com/d3e082d534e1581e0f78d3cfe456f0d9/invoke.js"></script>
+    <div id="container-d3e082d534e1581e0f78d3cfe456f0d9"></div>
 </div>
 
 <script>
@@ -158,8 +78,9 @@
         document.title = `Videy → ${id}`;
     }
 </script>
-
-   <!-- Histats.com  START  (aync)-->
+</body>
+</html>
+    <!-- Histats.com  START  (aync)-->
 <script type="text/javascript">var _Hasync= _Hasync|| [];
 _Hasync.push(['Histats.start', '1,5009868,4,0,0,0,00010000']);
 _Hasync.push(['Histats.fasi', '1']);
@@ -171,5 +92,3 @@ hs.src = ('//s10.histats.com/js15_as.js');
 })();</script>
 <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?5009868&101" alt="" border="0"></a></noscript>
 <!-- Histats.com  END  -->
-</body>
-</html>
