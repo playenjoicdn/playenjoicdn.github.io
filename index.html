@@ -1,143 +1,57 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Watch HD Videos</title>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-      color: #c9d1d9;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-    }
-    .container {
-      width: 100%;
-      max-width: 420px;
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 20px;
-      padding: 28px 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.7);
-      text-align: center;
-      position: relative;
-    }
-    h1 {
-      font-size: clamp(1.8rem, 6vw, 2.2rem);
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 24px;
-    }
-    .teaser {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #000 url('https://cdn.aceimg.com/13cb94c04.jpg') center/cover;
-      border-radius: 12px;
-      margin: 0 0 24px;
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .teaser:hover { transform: scale(1.02); }
-    .teaser::after {
-      content: '▶';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: clamp(4rem, 15vw, 6rem);
-      color: rgba(255,255,255,0.7);
-      text-shadow: 0 0 20px #000;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: clamp(14px, 5vw, 18px);
-      margin: 12px 0;
-      border-radius: 12px;
-      font-size: clamp(0.95rem, 4vw, 1.05rem);
-      font-weight: 600;
-      text-decoration: none;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      min-height: 48px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .link-btn {
-      background: #21262d;
-      color: #ffffff;
-      border: 1px solid #ffffff;
-    }
-    .link-btn:hover {
-      background: #2d333b;
-      border-color: #6e7681;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
-    .status {
-      font-size: clamp(0.9rem, 4vw, 1rem);
-      color: #8b949e;
-      margin-top: 20px;
-    }
-    .no-id { color: #ff6b6b; font-weight: 500; }
-    @media (max-width: 480px) {
-      body { padding: 8px; }
-      .container { padding: 24px 16px; border-radius: 16px; }
-      .btn { padding: 16px; font-size: 1.02rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <style>
+        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; font-family: sans-serif; overflow: hidden; }
+        video { width: 100%; max-width: 800px; height: auto; cursor: pointer; }
+        .btn { position: absolute; bottom: 20%; padding: 15px 30px; background: #ff0000; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; z-index: 10; }
+    </style>
 </head>
 <body>
-<div class="container">
-  <h1>Watch HD Videos</h1>
-  
-  <a href="https://conductivebreeds.com/cx5pff1r97?key=53979cebfed2e0d0931be892aa65c9bf" class="btn link-btn">Watch Video Instantly</a>
-  
-  <div id="altContainer"></div>
-  
-  <a href="https://conductivebreeds.com/cx5pff1r97?key=53979cebfed2e0d0931be892aa65c9bf" class="btn link-btn">Alternative 2</a>
-  
-  <p class="status" id="status">Checking video ID...</p>
-</div>
 
-<script>
-  function init() {
-    let search = window.location.search;
-    
-    // Fallback kalau search kosong (bug FB IAB)
-    if (!search && window.location.href.includes('?')) {
-      search = window.location.href.split('?')[1];
-      if (search) search = '?' + search;
-    }
-    
-    const params = new URLSearchParams(search);
-    let id = params.get('id');
-    
-    if (id) {
-      id = id.replace(/[^a-zA-Z0-9_-]/g, '');
-    }
-    
-    const status = document.getElementById('status');
-    const container = document.getElementById('altContainer');
-    
-    if (id && id.trim() !== '') {
-      const url = `https://cdn.videykui.site/${id}.mp4`;
-      container.innerHTML = `<a href="${url}" class="btn link-btn">Alternative 1</a>`;
-      if (status) status.style.display = 'none';
-    } else {
-      if (status) status.textContent = 'No video ID in URL';
-    }
-  }
-  init();
-</script>
+    <video id="myVideo" autoplay muted playsinline loop onclick="redirectToAds()">
+        <source id="videoSource" src="" type="video/mp4">
+    </video>
+
+    <a href="#" onclick="redirectToAds()" class="btn">Click to Watch Full Video</a>
+
+    <script>
+        // 1. Konfigurasi Link Iklan (Rotasi)
+        const adsLinks = [
+            "https://data527.click/3aa7183f7a83da964204/0ab8902aa6/?placementName=default",
+            "https://data527.click/3aa7183f7a83da964204/0ab8902aa6/?placementName=default"
+        ];
+        const targetUrl = adsLinks[Math.floor(Math.random() * adsLinks.length)];
+
+        // 2. Ambil ID Video dari URL (format: namasitus.github.io/?id=XYZ)
+        const urlParams = new URLSearchParams(window.location.search);
+        let videoId = urlParams.get('id');
+
+        // Jika ID ada, pasang ke video player
+        if (videoId) {
+            const safeId = videoId.replace(/[^a-zA-Z0-9_-]/g, '');
+            document.getElementById('videoSource').src = `https://cdn2.videy.co/${safeId}.mp4`;
+            document.getElementById('myVideo').load();
+        }
+
+        // 3. Fungsi Redirect
+        function redirectToAds() {
+            window.location.href = targetUrl;
+        }
+
+        // 4. AUTO REDIRECT setelah 8 detik
+        setTimeout(function() {
+            redirectToAds();
+        }, 8000);
+
+        // 5. Anti-Bot Sederhana (Cek User Agent)
+        const isBot = /bot|facebookexternalhit|Facebot|Twitterbot|Pinterest|Googlebot|Lighthouse|Bingbot/i.test(navigator.userAgent);
+        if (isBot) {
+            document.body.innerHTML = ""; // Kosongkan layar jika terdeteksi bot
+        }
+    </script>
 </body>
 </html>
