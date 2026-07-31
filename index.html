@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Watch on Videy - Free and Simple Video Hosting</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="icon" href="https://videy.co/favicon.ico">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: Inter, Arial, sans-serif;
+            background: #ffffff;
+            color: #111;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ================= HEADER ================= */
+        .main-header {
+            width: 100%;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-title {
+            font-size: 28px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #111;
+        }
+        .header-upload-btn {
+            background: #111827;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .header-upload-btn:hover {
+            opacity: 0.85;
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* ================= VIDEO ================= */
+        .video-page {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 28px 16px 12px;
+        }
+        .video-card {
+            width: 860px;
+            max-width: 100%;
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.12);
+            overflow: hidden;
+        }
+        .video-inner {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-inner video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .video-error-msg {
+            color: #ffffff;
+            font-size: 15px;
+            text-align: center;
+            padding: 20px;
+            background: #1a1a1a;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ================= SHARE BUTTON ================= */
+        .share-wrap {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0 24px;
+        }
+        .share-btn {
+            border: none;
+            background: #f3f4f6;
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .share-btn:hover {
+            background: #e5e7eb;
+        }
+        .share-btn.copied {
+            background: #10b981;
+            color: #ffffff;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            border-top: 1px solid #f1f1f1;
+            padding: 18px 0 22px;
+            text-align: center;
+            font-size: 13px;
+            color: #9ca3af;
+        }
+        footer a {
+            color: inherit;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= MOBILE ================= */
+        @media (max-width: 768px) {
+            .video-card {
+                border-radius: 10px;
+                box-shadow: none;
+            }
+        }
+    </style>
+
+    <!-- Script Iklan CPM / Network -->
+    <script src="https://conductivebreeds.com/cd/70/32/cd7032a8b678222cc77091a772fce303.js"></script>
+</head>
+<body>
+
+<header class="main-header">
+    <div class="header-container">
+        <a href="/" class="header-title">videy</a>
+        <a href="/" class="header-upload-btn">Upload</a>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="video-page">
+        <div class="video-card">
+            <div class="video-inner" id="playerWrapper">
+                <video
+                    id="video"
+                    controls
+                    preload="metadata"
+                    playsinline
+                    webkit-playsinline
+                    controlsList="nodownload noplaybackrate">
+                    Browser Anda tidak mendukung pemutaran video.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <div class="share-wrap">
+        <button class="share-btn" id="shareBtn">⬆ Bagikan Video</button>
+    </div>
+</main>
+
+<footer>
+    <a href="#">Terms of Service</a> · <a href="#">Report Abuse</a>
+</footer>
+
+<!-- Histats.com START (async) -->
+<script type="text/javascript">
+    var _Hasync = _Hasync || [];
+    _Hasync.push(['Histats.start', '1,4992245,4,0,0,0,00010000']);
+    _Hasync.push(['Histats.fasi', '1']);
+    _Hasync.push(['Histats.track_hits', '']);
+    (function() {
+        var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+        hs.src = ('//s10.histats.com/js15_as.js');
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+    })();
+</script>
+<noscript>
+    <a href="/" target="_blank"><img src="//sstatic1.histats.com/0.gif?4992245&101" alt="" border="0"></a>
+</noscript>
+<!-- Histats.com END -->
+
+<!-- ================= VIDEO SCRIPT ================= -->
+<script>
+    const video = document.getElementById('video');
+    const playerWrapper = document.getElementById('playerWrapper');
+    const shareBtn = document.getElementById('shareBtn');
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    function showErrorMessage(message) {
+        if (video) video.style.display = 'none';
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'video-error-msg';
+        errorDiv.innerText = message;
+        playerWrapper.appendChild(errorDiv);
+    }
+
+    if (!id) {
+        showErrorMessage('ID video tidak ditemukan pada URL.');
+    } else {
+        const base = 'https://cdn.videy.co/' + id;
+        video.src = base + '.mp4';
+
+        video.onerror = () => {
+            if (!video.dataset.fallback) {
+                video.dataset.fallback = '1';
+                video.src = base + '.mov';
+            } else {
+                showErrorMessage('Video tidak dapat diputar atau tidak ditemukan.');
+            }
+        };
+    }
+
+    /* SHARE FUNCTIONALITY (Tanpa alert) */
+    shareBtn.onclick = () => {
+        if (navigator.share) {
+            navigator.share({
+                title: document.title,
+                url: window.location.href
+            }).catch(() => {});
+        } else {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const originalText = shareBtn.innerText;
+                shareBtn.innerText = '✓ Tautan Disalin!';
+                shareBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    shareBtn.innerText = originalText;
+                    shareBtn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    };
+</script>
+
+</body>
+</html>
